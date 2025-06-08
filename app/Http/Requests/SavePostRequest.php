@@ -23,7 +23,8 @@ class SavePostRequest extends FormRequest
     {
         if ($this->isMethod('PATCH')){
             return [
-                'title' => ['min:6']
+                'title' => ['min:6'],
+                'body' => ['required']
             ];
         }
 

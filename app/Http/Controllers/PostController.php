@@ -9,6 +9,10 @@ use App\Http\Requests\SavePostRequest;
 
 class PostController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->except('index', 'show');
+    }
 
     public function index()
     {
@@ -28,7 +32,7 @@ class PostController extends Controller
     public function store(SavePostRequest $request){
         Post::create($request->validated());
 
-        return to_route('blog')->with('status', 'Post creado');
+        return to_route('posts.index')->with('status', 'Post creado');
     }
 
     public function edit(Post $post){
@@ -44,6 +48,6 @@ class PostController extends Controller
     public function destroy(Post $post){
         $post->delete();
 
-        return to_route('blog', $post)->with('status', 'Post eliminado');
+        return to_route('posts.index', $post)->with('status', 'Post eliminado');
     }
 }
